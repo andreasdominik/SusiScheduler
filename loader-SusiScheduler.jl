@@ -6,7 +6,6 @@
 #
 # A. Dominik, May 2023, © GPL3
 #
-
 APP_DIR = @__DIR__
 include("$APP_DIR/Skill/SusiScheduler.jl")
 import Main.SusiScheduler
@@ -14,5 +13,3 @@ import Main.SusiScheduler
 global INTENT_ACTIONS
 append!(INTENT_ACTIONS, SusiScheduler.get_intent_actions())
 
-action_channel = Channel()
-@async start_scheduler()

@@ -39,7 +39,7 @@ the command will publised to the NLU as plain text
 """
 function Scheduler_AddAction_action(topic, payload)
 
-    global action_channel
+
     print_log("action Scheduler_AddAction_action() started.")
 
     if payload[:type] == "intent"
@@ -51,7 +51,8 @@ function Scheduler_AddAction_action(topic, payload)
         return false
     end
 
-    put!(action_cannel, action)
+print_log(">>> action->channel: $action")
+    put!(action_channel, action)
     return true
 end
 

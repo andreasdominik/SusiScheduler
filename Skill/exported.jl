@@ -6,9 +6,25 @@
 # deliver actions and intents to the Main context:
 #
 function get_intent_actions()
-    return Susi.get_intent_actions()
-end
 
+    return SKILL_INTENT_ACTIONS
+ end
+ 
+ function register_intent_action(intent, action)
+ 
+     global SKILL_INTENT_ACTIONS
+     topic = "hermes/intent/$intent"
+     push!(SKILL_INTENT_ACTIONS, (intent, topic, MODULE_NAME, action))
+ end
+ 
+ function register_on_off_action(action)
+ 
+     lang = get_language()
+     intent = "$(HermesMQTT.HERMES_ON_OFF_INTENT)<$lang>"
+ 
+     register_intent_action(intent, action)
+ end
+ 
 
 
 
@@ -27,11 +43,13 @@ function callback_run(fun, topic, payload)
         Susi.set_appdir(APP_DIR)
         Susi.set_appname(APP_NAME)
 
-    if Susi.is_false_detection(payload)
-        Susi.publish_end_session("")
-        return false
-    end
-
+    # false detection is not needed, because the
+    # intent is not from rhasspy:
+    #
+    # if Susi.is_false_detection(payload)
+    #     Susi.publish_end_session("")
+    #     return false
+    # end
     result = fun(topic, payload)
 
     # fix, if the action does not return true or false:

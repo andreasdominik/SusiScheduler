@@ -1,0 +1,27 @@
+# config file for HermesMQTT template skill.
+#
+# Syntax:
+# + Sections for skill-wide settinge in  [global]
+# + Settings for language xy in [xy] (always 2-letter-code)
+#
+# + each line is name and a list of values (1 or more): 
+#   name = value
+#   name = value, value, value
+# + spaces around '=' and ',' are allowed but stripped
+# + 'name' may contain letters, digits and some special charaters, 
+#    including : / < >
+#
+# + all config.ini files are read when HermesMQTT starts;
+#   after changes a restart is necessary.
+
+# global settings for all skills go in the section [global]:
+# BUT: skill-limited sctions are not yet supported
+#      (maybe not neeeded?)
+#
+[global]
+this_skill_name = SusiScheduler
+
+
+
+
+

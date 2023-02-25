@@ -7,7 +7,7 @@ const CONTINUE_WO_HOTWORD = false
 
 # set a local const LANG:
 #
-const LANG = get_language()
+const LANG = "de"
 
 
 
@@ -29,7 +29,7 @@ const LANG = get_language()
 #
 # Susi.register_intent_action("TEMPLATE_SKILL", TEMPLATE_INTENT_action)
 # Susi.register_on_off_action(TEMPLATE_INTENT_action)
-Susi.register_intent_action("Scheduler:AddAction", Scheduler_AddAction_action)
-Susi.register_intent_action("Scheduler:DeleteAll", Scheduler_DeleteAll_action)
-Susi.register_intent_action("Scheduler:DeleteOrigin", Scheduler_DeleteOrigin_action)
-Susi.register_intent_action("Scheduler:DeleteTopic", Scheduler_DeleteTopic_action)
+register_intent_action("Scheduler:AddAction", Scheduler_AddAction_action)
+register_intent_action("Scheduler:DeleteAll", Scheduler_DeleteAll_action)
+register_intent_action("Scheduler:DeleteOrigin", Scheduler_DeleteOrigin_action)
+register_intent_action("Scheduler:DeleteTopic", Scheduler_DeleteTopic_action)
