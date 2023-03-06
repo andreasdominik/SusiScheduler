@@ -4,8 +4,8 @@ println(">>> scheduler start")
     # loop forever
     # and execute one trigger per loop, if one is due
     #
-    interval_exec = 10  # sec
-    interval_wait = 10  # sec
+    interval_exec = 5  # sec
+    interval_wait = 60  # sec
     while true
 
         global action_channel
