@@ -1,6 +1,5 @@
 function start_scheduler()
 
-println(">>> scheduler start")
     # loop forever
     # and execute one trigger per loop, if one is due
     #
@@ -10,13 +9,12 @@ println(">>> scheduler start")
 
         global action_channel
 
-        println(">>> scheduler loop")
+println(">>> scheduler loop")
         # add actions to db:
         # read from channel, until empty:
         #
         while isready(action_channel)
             action = take!(action_channel)
-            print_debug("action from channel: $action")
 
             if action[:type] == "delete all"
                 del_all_actions_from_db()
@@ -39,9 +37,7 @@ println(">>> scheduler start")
 
            next_action = deepcopy(db[DB_KEY_ACTIONS][1])
            run_action(next_action)
-           println("len = $(length(db[DB_KEY_ACTIONS]))")
            deleteat!(db[DB_KEY_ACTIONS], 1)
-           println("len = $(length(db[DB_KEY_ACTIONS]))")
            db_write_entry(DB_KEY, db)
            sleep(interval_exec)
         end
@@ -58,10 +54,8 @@ end
 function run_action(action)
 
     if action[:type] == "command"
-        print_debug("run_action: command: $(action[:customData])")
         run_command(action[:customData])
     elseif action[:type] == "intent"
-        print_debug("run_action: intent: $(action[:customData])")
         run_intent(action[:customData])
     else
         print_log("ERROR: Unknown action type for Scheduler: $(action[:type])")

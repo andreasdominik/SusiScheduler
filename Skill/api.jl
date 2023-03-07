@@ -60,7 +60,6 @@ end
 function add_action_to_db(action)
 
     db = db_read_entry(DB_KEY)
-println(">>> db = $db")
     if isnothing(db)
         db = Dict(:comment => "Scheduled actions", DB_KEY_ACTIONS => [])
     end

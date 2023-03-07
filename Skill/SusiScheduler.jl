@@ -42,17 +42,14 @@ const DB_KEY_ACTIONS = :actions
 
 # mask the following functions:
 #
-# get_config(name; multiple=false, one_prefix=nothing, skill=SusiScheduler) =
-#     Susi._get_config(name; multiple=multiple, one_prefix=one_prefix, skill=skill)
-# 
-# match_config(name, val::String; skill=SusiScheduler) =
-#     Susi._match_config(name, val; skill=skill)
-# 
-# is_in_config(name; skill=SusiScheduler) =
-#     Susi._is_in_config(name; skill=skill)
-# 
-# print_log()
-# print_debug()
+get_config(name; multiple=false, one_prefix=nothing) =
+    HermesMQTT.get_config_skill(name; multiple=multiple, one_prefix=one_prefix, skill=APP_NAME)
+is_in_config(name) = HermesMQTT.is_in_config_skill(name; skill=APP_NAME)           
+match_config(name, val::AbstractString) = HermesMQTT.match_config_skill(name, val; skill=APP_NAME)
+ 
+print_log(s) = HermesMQTT.print_log_skill(s; skill=APP_NAME)
+print_debug(s) = HermesMQTT.print_debug_skill(s; skill=APP_NAME)
+
 
 action_channel = Channel(128)
 @async start_scheduler()

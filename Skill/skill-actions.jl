@@ -51,7 +51,6 @@ function Scheduler_AddAction_action(topic, payload)
         return false
     end
 
-print_log(">>> action->channel: $action")
     put!(action_channel, action)
     return true
 end
