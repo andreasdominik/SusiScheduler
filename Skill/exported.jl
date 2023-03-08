@@ -17,6 +17,15 @@ function get_intent_actions()
      push!(SKILL_INTENT_ACTIONS, (intent, topic, MODULE_NAME, action))
  end
  
+ # register a non-stabndard intent for the scheduler:
+ #
+ function register_scheduler_action(intent, action)
+ 
+     global SKILL_INTENT_ACTIONS
+     topic = "susi/intent/$intent"
+     push!(SKILL_INTENT_ACTIONS, (intent, topic, MODULE_NAME, action))
+ end
+ 
  function register_on_off_action(action)
  
      lang = get_language()
