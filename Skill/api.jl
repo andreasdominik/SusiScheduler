@@ -92,3 +92,64 @@ function del_actions_by_topic(topic)
     db_write_entry(DB_KEY, db)
 end
 
+
+# Add a new weather record to db if, the last record is older than 1 hour:
+# old records are deleted.
+# The entries are added in key "SusiWeatherHistory" in the db.
+#
+# JSON of key :SusiWeather is:
+# "times" => [time1, time2, ...]
+# "comment" => "Weather history"
+#
+# Each time is a record from HermesMQTT.get_weather()
+#
+function add_weather_history_to_db()
+
+    
+    weather_history = db_read_value(:SusiWeather, :times)
+    if isnothing(weather_history)
+        weather_history = []
+    end
+
+    # sort a dictionary by key (newest last):
+    #
+    sort!(weather_history, by=x->x[:time])
+    # println("weather_history: $(weather_history)")
+    
+    # do nothing, if last record is less than 1 hour old:
+    #
+    if length(weather_history) > 0
+        last = weather_history[end]
+        if Dates.DateTime(last[:time]) > Dates.DateTime(now() - Dates.Hour(1))
+            return
+        end
+    end
+
+
+    # remove unneeded history:
+    # hist fom config.ini or default = 7 days
+    #
+    history_len = get_config_skill(INI_WEATHER_DAYS, skill="HermesMQTT")
+
+    if !isnothing(history_len)
+        history_len = tryparse(Int, history_len)
+    end
+    if isnothing(history_len)
+        history_len = 7
+    end
+    old = Dates.DateTime(Dates.now() - Dates.Day(history_len)) |> string
+
+    filter!(x->x[:time]>old, weather_history)
+
+    # add new record:
+    #
+    weather = HermesMQTT.get_weather()
+    if !isnothing(weather)
+        push!(weather_history, weather)
+        db_write_value(:SusiWeather, :times, weather_history)
+    end
+end
+
+
+
+

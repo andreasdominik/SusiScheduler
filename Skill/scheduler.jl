@@ -9,6 +9,10 @@ function start_scheduler()
 
         global action_channel
 
+        # add a record of weather history to db:
+        #
+        add_weather_history_to_db()
+
 println(">>> scheduler loop")
         # add actions to db:
         # read from channel, until empty:

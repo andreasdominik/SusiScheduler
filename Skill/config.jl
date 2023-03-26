@@ -18,6 +18,7 @@ const LANG = "de"
 
 # name of entries in config.ini:
 #
+INI_WEATHER_DAYS = "weather_history"
 
 #
 # link between actions and intents:
