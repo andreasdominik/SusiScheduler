@@ -54,6 +54,14 @@ function mk_action_delete_topic(topic)
     )
 end
 
+function mk_action_delete_today()
+   
+    return Dict(
+        :type => "delete today",
+        :customData => ""
+    )
+end
+
 
 # add an action to the status database:
 #
@@ -89,6 +97,14 @@ function del_actions_by_topic(topic)
         
     db = db_read_entry(DB_KEY)
     db[DB_KEY_ACTIONS] = filter(x->(x[:type] != "intent" && x[:customData][:intent][:intentName] == topic), db[DB_KEY_ACTIONS])
+    db_write_entry(DB_KEY, db)
+end
+
+function del_actions_by_today()
+        
+    db = db_read_entry(DB_KEY)
+    db[DB_KEY_ACTIONS] = filter(x->Date(Dates.DateTime(x[:exec_time])) == Dates.today(),
+                            db[DB_KEY_ACTIONS])
     db_write_entry(DB_KEY, db)
 end
 

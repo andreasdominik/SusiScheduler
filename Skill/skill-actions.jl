@@ -106,3 +106,18 @@ function Scheduler_DeleteTopic_action(topic, payload)
     put!(action_cannel, action)
     return true
 end
+
+"""
+    Scheduler_DeleteToday_action(topic, payload)
+
+Delete all schedules for today.
+"""
+function Scheduler_DeleteToday_action(topic, payload)
+
+    global action_channel
+    print_log("action Scheduler_DeleteToday_action() started.")
+    
+    action = mk_action_delete_today()
+    put!(action_cannel, action)
+    return true
+end
