@@ -24,6 +24,8 @@ println(">>> scheduler loop")
                 del_all_actions_from_db()
             elseif action[:type] == "delete origin"
                 del_actions_by_origin(action[:customData])
+            elseif action[:type] == "delete today"
+                del_actions_by_today()
             elseif action[:type] in ["command", "intent"]
                 add_action_to_db(action)
             #elseif action[:type] == "delete topic"
